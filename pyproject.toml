@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "advent_code"
+version = "0.1.0"
+description = "Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can be solved in any programming language you like. People use them as interview prep, company training, university coursework, practice problems, a speed contest, or to challenge each other."
+authors = ["André Rocha <rocha.matcomp@gmail.com>"]
+license = "CC0 1.0 Universal"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.18.1"
+ipdb = "^0.13.13"
+ruff = "^0.1.6"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
