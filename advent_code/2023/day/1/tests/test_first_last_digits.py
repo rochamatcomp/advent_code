@@ -27,7 +27,7 @@ def test_calibration_value_for_1abc2_must_be_12():
     assert calibrated == 12
 
 
-def test_calibration_value_for_pqr3stu8vwx_must_be_12():
+def test_calibration_value_for_pqr3stu8vwx_must_be_38():
     value = 'pqr3stu8vwx'
 
     calibrated = calibration(value)
@@ -35,7 +35,7 @@ def test_calibration_value_for_pqr3stu8vwx_must_be_12():
     assert calibrated == 38
 
 
-def test_calibration_value_for_a1b2c3d4e5f_must_be_12():
+def test_calibration_value_for_a1b2c3d4e5f_must_be_15():
     value = 'a1b2c3d4e5f'
 
     calibrated = calibration(value)
@@ -43,7 +43,7 @@ def test_calibration_value_for_a1b2c3d4e5f_must_be_12():
     assert calibrated == 15
 
 
-def test_calibration_value_for_treb7uchet_must_be_12():
+def test_calibration_value_for_treb7uchet_must_be_77():
     value = 'treb7uchet'
 
     calibrated = calibration(value)
