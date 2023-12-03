@@ -39,25 +39,75 @@ It looks like some of the digits are actually spelled out with letters:
 one, two, three, four, five, six, seven, eight, and nine also count as valid "digits".
 """
 
+from dataclasses import dataclass
+from itertools import chain
+import re
 
-def first(line: str) -> int:
-    for character in line:
+
+@dataclass
+class NumberPosition:
+    number: str
+    position: int
+
+
+numbers = {
+    # 3 letters
+    'one': '1',
+    # 3 letters
+    'two': '2',
+    # 5 letters
+    'three': '3',
+    # 4 letters
+    'four': '4',
+    # 4 letters
+    'five': '5',
+    # 3 letters
+    'six': '6',
+    # 5 letters
+    'seven': '7',
+    # 5 letters
+    'eight': '8',
+    # 4 letters
+    'nine': '9'
+}
+
+
+def search_word(line):
+    for word, digit in numbers.items():
+        result = re.search(f'.*({word}).*', line)
+
         try:
-            digit = int(character)
-        except ValueError:
+            start = result.start(1)
+        except AttributeError:
             continue
 
-        return digit
+        yield NumberPosition(digit, start)
 
 
-def last(line: str) -> int:
-    for character in reversed(line):
+def search_digit(line):
+    for digit in numbers.values():
+        result = re.search(f'.*({digit}).*', line)
+
         try:
-            digit = int(character)
-        except ValueError:
+            start = result.start(1)
+        except AttributeError:
             continue
 
-        return digit
+        yield NumberPosition(digit, start)
+
+
+def first(line: str) -> str:
+    search = chain(search_word(line), search_digit(line))
+    digit = min(search, key=lambda number: number.position)
+
+    return digit.number
+
+
+def last(line: str) -> str:
+    search = chain(search_word(line), search_digit(line))
+    digit = max(search, key=lambda number: number.position)
+
+    return digit.number
 
 
 def calibration(line: str) -> int:
@@ -72,7 +122,6 @@ def calibration(line: str) -> int:
         int: Calibration value as first digit and the last digit
         (in that order) to form a single two-digit number.
     """
-
     first_digit = first(line)
     last_digit = last(line)
 
