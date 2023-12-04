@@ -11,7 +11,6 @@ IDs of those games?
 from cube_conundrum import check
 
 
-
 def possible_games():
     with open('input') as file_input:
         for line in file_input:
