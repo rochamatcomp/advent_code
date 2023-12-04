@@ -41,7 +41,6 @@ one, two, three, four, five, six, seven, eight, and nine also count as valid "di
 
 from dataclasses import dataclass
 from itertools import chain
-import re
 
 
 @dataclass
@@ -72,40 +71,38 @@ numbers = {
 }
 
 
-def search_word(line):
+def search_word(search, line):
     for word, digit in numbers.items():
-        result = re.search(f'.*({word}).*', line)
-
         try:
-            start = result.start(1)
-        except AttributeError:
+            start = search(line, word)
+        except ValueError:
             continue
 
         yield NumberPosition(digit, start)
 
 
-def search_digit(line):
+def search_digit(search, line):
     for digit in numbers.values():
-        result = re.search(f'.*({digit}).*', line)
-
         try:
-            start = result.start(1)
-        except AttributeError:
+            start = search(line, digit)
+        except ValueError:
             continue
 
         yield NumberPosition(digit, start)
 
 
 def first(line: str) -> str:
-    search = chain(search_word(line), search_digit(line))
-    digit = min(search, key=lambda number: number.position)
+    search = str.index
+    query = chain(search_word(search, line), search_digit(search, line))
+    digit = min(query, key=lambda number: number.position)
 
     return digit.number
 
 
 def last(line: str) -> str:
-    search = chain(search_word(line), search_digit(line))
-    digit = max(search, key=lambda number: number.position)
+    search = str.rindex
+    query = chain(search_word(search, line), search_digit(search, line))
+    digit = max(query, key=lambda number: number.position)
 
     return digit.number
 
