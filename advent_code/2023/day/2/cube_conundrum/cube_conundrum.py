@@ -39,10 +39,7 @@ class Game:
     blue: int = 0
 
 
-def parse(game_raw: str) -> Iterator[Game]:
-    name, sets = game_raw.split(':')
-    _, game_id = name.split()
-
+def parse_sets(sets) -> dict[str, int]:
     plays = sets.split(';')
 
     for play in plays:
@@ -52,12 +49,29 @@ def parse(game_raw: str) -> Iterator[Game]:
             number, color = subset.split()
             colors[color] = int(number)
 
-        subset = Game(
-            int(game_id),
+        yield colors
+
+
+def parse_name(name: str) -> int:
+    _, game_id = name.split()
+
+    return int(game_id)
+
+
+def parse(game_raw: str) -> Iterator[Game]:
+    name, sets = game_raw.split(':')
+
+    game_id = parse_name(name)
+    subsets = parse_sets(sets)
+
+    for colors in subsets:
+        game = Game(
+            game_id,
             **colors
         )
 
-        yield subset
+        yield game
+
 
 
 def possible_subset(subset: Game, red=12, green=13, blue=14) -> Iterator[int]:
