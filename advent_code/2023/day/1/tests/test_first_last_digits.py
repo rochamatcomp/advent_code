@@ -122,3 +122,19 @@ def test_calibration_value_for_7pqrstsixteen_must_be_76():
     calibrated = calibration(value)
 
     assert calibrated == 76
+
+
+def test_calibration_value_for_ssevenhcltwoseven2cxrmxxcr_must_be_72():
+    value = 'ssevenhcltwoseven2cxrmxxcr'
+
+    calibrated = calibration(value)
+
+    assert calibrated == 72
+
+
+def test_calibration_value_for_7twonineninetwo_must_be_72():
+    value = '7twonineninetwo'
+
+    calibrated = calibration(value)
+
+    assert calibrated == 72
