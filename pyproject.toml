@@ -15,6 +15,16 @@ ipdb = "^0.13.13"
 ruff = "^0.1.6"
 pytest = "^7.4.3"
 
+[tool.ruff]
+extend-select = ["Q"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
